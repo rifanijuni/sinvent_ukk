@@ -11,19 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori', function (Blueprint $table) {
+        Schema::create('barangkeluar', function (Blueprint $table) {
             $table->id();
-            $table->string('deskripsi',100)->nullable();
-            $table->enum('kategori',['M','A','BHP','BTHP'])->default('A');
+            $table->date('tgl_keluar');
+            $table->smallInteger('qty_keluar')->default(1);
+            $table->foreignId('barang_id');
+            $table->foreign('barang_id')->references('id')->on('barang')->onDelete('restrict');
             $table->timestamps();
-        });
-    }
+        });    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategori');
+        Schema::dropIfExists('barangkeluar');
     }
 };
